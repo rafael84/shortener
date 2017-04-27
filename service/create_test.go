@@ -7,6 +7,10 @@ import (
 )
 
 func TestCreate(t *testing.T) {
+	// a  b  c  ba  bb  bc  ca  cb  cc  baa  bab
+	// 0  1  2  3   4   5   6   7   8   9    10
+	service.Alphabet = "abc"
+
 	for _, tc := range []struct {
 		Scenario string
 		ReqURL   string
@@ -15,30 +19,65 @@ func TestCreate(t *testing.T) {
 		ResErr   string
 	}{
 		{
-			Scenario: "Empty URL",
+			Scenario: "Bad 1",
 			ReqURL:   "",
 			ReqAlias: "",
 			ResErr:   "url is required",
 		},
 		{
-			Scenario: "URL is Incomplete",
+			Scenario: "Bad 2",
 			ReqURL:   "invalid",
 			ReqAlias: "",
 			ResAlias: "",
 			ResErr:   "url is invalid",
 		},
 		{
-			Scenario: "URL is Whitespace",
+			Scenario: "Bad 3",
 			ReqURL:   " ",
 			ReqAlias: "",
 			ResAlias: "",
 			ResErr:   "url is invalid",
 		},
 		{
-			Scenario: "URL is Valid",
+			Scenario: "With Alias 1",
 			ReqURL:   "http://valid.com",
-			ReqAlias: "a",
+			ReqAlias: "a1",
+			ResAlias: "a1",
+			ResErr:   "",
+		},
+		{
+			Scenario: "With Alias 2",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "a2",
+			ResAlias: "a2",
+			ResErr:   "",
+		},
+		{
+			Scenario: "No Alias 1",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "",
 			ResAlias: "a",
+			ResErr:   "",
+		},
+		{
+			Scenario: "No Alias 2",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "",
+			ResAlias: "b",
+			ResErr:   "",
+		},
+		{
+			Scenario: "No Alias 3",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "",
+			ResAlias: "c",
+			ResErr:   "",
+		},
+		{
+			Scenario: "No Alias 4",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "",
+			ResAlias: "ba",
 			ResErr:   "",
 		},
 	} {
