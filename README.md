@@ -1,5 +1,5 @@
 # shortener
-A sample URL Shortner written in GO
+A sample URL Shortener written in GO
 
 ## Test
 
