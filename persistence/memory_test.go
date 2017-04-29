@@ -1,6 +1,9 @@
 package persistence
 
-import "testing"
+import (
+	"strconv"
+	"testing"
+)
 
 func TestMemory(t *testing.T) {
 	type KeyValue struct {
@@ -41,3 +44,42 @@ func TestMemory(t *testing.T) {
 		})
 	}
 }
+
+func benchmarkMemorySet(keyCount int, b *testing.B) {
+	memory := NewMemory()
+	aliases := []string{}
+	for n := 0; n < keyCount; n++ {
+		aliases = append(aliases, strconv.Itoa(n))
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		memory.Set(aliases[n%keyCount], "url")
+	}
+}
+
+func BenchmarkMemorySet1(b *testing.B)       { benchmarkMemorySet(1, b) }
+func BenchmarkMemorySet10(b *testing.B)      { benchmarkMemorySet(10, b) }
+func BenchmarkMemorySet100(b *testing.B)     { benchmarkMemorySet(100, b) }
+func BenchmarkMemorySet1000(b *testing.B)    { benchmarkMemorySet(1000, b) }
+func BenchmarkMemorySet10000(b *testing.B)   { benchmarkMemorySet(10000, b) }
+func BenchmarkMemorySet100000(b *testing.B)  { benchmarkMemorySet(100000, b) }
+func BenchmarkMemorySet1000000(b *testing.B) { benchmarkMemorySet(1000000, b) }
+
+func benchmarkMemoryGet(keyCount int, b *testing.B) {
+	memory := NewMemory()
+	for n := 0; n < keyCount; n++ {
+		memory.Set(strconv.Itoa(n), "url")
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		memory.Get(strconv.Itoa(n % keyCount))
+	}
+}
+
+func BenchmarkMemoryGet1(b *testing.B)       { benchmarkMemoryGet(1, b) }
+func BenchmarkMemoryGet10(b *testing.B)      { benchmarkMemoryGet(10, b) }
+func BenchmarkMemoryGet100(b *testing.B)     { benchmarkMemoryGet(100, b) }
+func BenchmarkMemoryGet1000(b *testing.B)    { benchmarkMemoryGet(1000, b) }
+func BenchmarkMemoryGet10000(b *testing.B)   { benchmarkMemoryGet(10000, b) }
+func BenchmarkMemoryGet100000(b *testing.B)  { benchmarkMemoryGet(100000, b) }
+func BenchmarkMemoryGet1000000(b *testing.B) { benchmarkMemoryGet(1000000, b) }
