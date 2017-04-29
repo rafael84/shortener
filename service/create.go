@@ -5,12 +5,6 @@ import (
 	parser "net/url"
 )
 
-var (
-	Alphabet = "abc"
-
-	generated = 0
-)
-
 func Create(url, alias string) (string, error) {
 	if url == "" {
 		return "", errors.New("url is required")
@@ -23,6 +17,7 @@ func Create(url, alias string) (string, error) {
 		alias = Encode(generated)
 		generated++
 	}
+	Storage.Set(alias, url)
 	return alias, nil
 }
 
