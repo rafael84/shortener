@@ -7,9 +7,13 @@ import (
 	"testing"
 
 	"github.com/rafael84/shortener/handler"
+	"github.com/rafael84/shortener/persistence"
+	"github.com/rafael84/shortener/service"
 )
 
 func TestCreate(t *testing.T) {
+	service.Storage = persistence.NewMemory()
+
 	for _, tc := range []struct {
 		Scenario    string
 		GivenParams url.Values

@@ -3,10 +3,13 @@ package service_test
 import (
 	"testing"
 
+	"github.com/rafael84/shortener/persistence"
 	"github.com/rafael84/shortener/service"
 )
 
 func TestRecover(t *testing.T) {
+	service.Storage = persistence.NewMemory()
+
 	if err := service.Storage.Set("f1", "http://valid.com"); err != nil {
 		t.Error(err)
 	}
