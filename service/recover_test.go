@@ -9,6 +9,9 @@ import (
 
 func TestRecover(t *testing.T) {
 	service.Storage = persistence.NewMemory()
+	// a  b  c  ba  bb  bc  ca  cb  cc  baa  bab
+	// 0  1  2  3   4   5   6   7   8   9    10
+	service.Alphabet = "abc"
 
 	if err := service.Storage.Set("f1", "http://valid.com"); err != nil {
 		t.Error(err)
