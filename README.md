@@ -1,11 +1,22 @@
 # shortener
 A sample URL Shortener written in GO
 
+
+## Run
+
+    $ make run
+    go run cmd/shortener-server/main.go
+    2017/05/01 12:30:06 server running at port 8080
+
 ## Test
 
     $ make test
     go test -cover ./...
-    ok  	github.com/rafael84/shortener/service	0.009s	coverage: 100.0% of statements
+    ?   	github.com/rafael84/shortener/cmd/shortener-server	[no test files]
+    ok  	github.com/rafael84/shortener/handler	0.015s	coverage: 100.0% of statements
+    ok  	github.com/rafael84/shortener/persistence	0.014s	coverage: 100.0% of statements
+    ok  	github.com/rafael84/shortener/service	0.012s	coverage: 100.0% of statements
+
 
 ## Benchmark
 
