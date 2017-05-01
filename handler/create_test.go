@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strings"
 	"testing"
 
 	"github.com/rafael84/shortener/handler"
@@ -102,12 +103,18 @@ func TestCreate(t *testing.T) {
 			hc.ServeHTTP(rr, req)
 
 			if rr.Code != tc.WantStatus {
-				t.Errorf("unexpected status code\nwant:\t[%d]\ngot:\t[%d]", tc.WantStatus, rr.Code)
+				t.Fatalf("unexpected status code\nwant:\t[%d]\ngot:\t[%d]", tc.WantStatus, rr.Code)
+			}
+
+			contentType := rr.Header().Get("Content-Type")
+			if !strings.HasPrefix(contentType, "application/json") {
+				t.Fatalf("unexpected content-type\nwant:\t[%v]\ngot:\t[%v]", "application/json", contentType)
 			}
 
 			if rr.Body.String() != tc.WantBody {
-				t.Errorf("unexpected body\nwant:\t[%s]\ngot:\t[%s]", tc.WantBody, rr.Body.String())
+				t.Fatalf("unexpected body\nwant:\t[%s]\ngot:\t[%s]", tc.WantBody, rr.Body.String())
 			}
+
 		})
 	}
 }

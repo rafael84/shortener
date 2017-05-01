@@ -3,6 +3,7 @@ package handler_test
 import (
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 
 	"github.com/rafael84/shortener/handler"
@@ -52,13 +53,13 @@ func TestRecover(t *testing.T) {
 			Scenario:   "Invalid 1",
 			GivenAlias: "inv1",
 			WantStatus: 404,
-			WantBody:   "Not Found\n",
+			WantBody:   `{"err":"Not Found"}`,
 		},
 		{
 			Scenario:   "Invalid 2",
 			GivenAlias: "inv2",
 			WantStatus: 404,
-			WantBody:   "Not Found\n",
+			WantBody:   `{"err":"Not Found"}`,
 		},
 	} {
 		t.Run(tc.Scenario, func(t *testing.T) {
@@ -81,6 +82,11 @@ func TestRecover(t *testing.T) {
 				if location != tc.WantLocation {
 					t.Fatalf("unexpected location\nwant:\t[%v]\ngot:\t[%v]", tc.WantLocation, location)
 				}
+			}
+
+			contentType := rr.Header().Get("Content-Type")
+			if !strings.HasPrefix(contentType, "application/json") {
+				t.Fatalf("unexpected content-type\nwant:\t[%v]\ngot:\t[%v]", "application/json", contentType)
 			}
 
 			if tc.WantBody != "" {

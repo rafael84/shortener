@@ -11,6 +11,8 @@ func Create(w http.ResponseWriter, r *http.Request) {
 	u := r.FormValue("url")
 	a := r.FormValue("alias")
 
+	w.Header().Set("Content-Type", "application/json")
+
 	if a != "" {
 		u, err := service.Recover(a)
 		if err == nil && u != "" {

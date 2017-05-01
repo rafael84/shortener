@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 
@@ -8,10 +9,12 @@ import (
 )
 
 func Recover(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
 	alias := strings.TrimPrefix(r.URL.Path, "/a/")
 	url, err := service.Recover(alias)
 	if err != nil {
-		http.Error(w, http.StatusText(404), 404)
+		w.WriteHeader(404)
+		fmt.Fprintf(w, `{"err":"Not Found"}`)
 	} else {
 		w.Header().Set("Location", url)
 		w.WriteHeader(302)
