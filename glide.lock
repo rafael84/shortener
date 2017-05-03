@@ -1,6 +1,14 @@
-hash: 4eba9a18dca9c8c306fae150c74fe6682516a25e96aa6ea242abc0158d19c25b
-updated: 2017-05-03T08:01:16.533220675-03:00
+hash: 6c6eb0753045f4cfbcad49c52a7519b2aeef3a2ed3d9b36c5f37d041d2a534e2
+updated: 2017-05-03T09:13:09.389198557-03:00
 imports:
+- name: github.com/alicebob/miniredis
+  version: 995ba133bd8fe5dae5a34732bd99f558b0b60e1a
 - name: github.com/go-redis/redis
   version: 2528e7a712d313b85173f4c677278c8e6270bb23
+  subpackages:
+  - internal
+  - internal/consistenthash
+  - internal/hashtag
+  - internal/pool
+  - internal/proto
 testImports: []

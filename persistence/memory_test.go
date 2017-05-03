@@ -49,7 +49,7 @@ func TestMemory(t *testing.T) {
 	} {
 		t.Run(tc.Scenario, func(t *testing.T) {
 			if err := memory.Set(tc.Set.Key, tc.Set.Value); err != nil {
-				t.Error(err)
+				t.Fatal(err)
 			}
 			if tc.Increment {
 				if err := memory.Increment(); err != nil {
@@ -58,12 +58,12 @@ func TestMemory(t *testing.T) {
 			}
 			url, _ := memory.Get(tc.Get.Key)
 			if url != tc.Get.Value {
-				t.Errorf("unexpected value\nwant\t[%v]\ngot\t[%v]",
+				t.Fatalf("unexpected value\nwant\t[%v]\ngot\t[%v]",
 					tc.Get.Value, url)
 			}
 			count := memory.Count()
 			if count != tc.Count {
-				t.Errorf("unexpected count\nwant\t[%v]\ngot\t[%v]",
+				t.Fatalf("unexpected count\nwant\t[%v]\ngot\t[%v]",
 					tc.Count, count)
 			}
 		})

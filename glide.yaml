@@ -2,3 +2,5 @@ package: github.com/rafael84/shortener
 import:
 - package: github.com/go-redis/redis
   version: ^6.2.4
+- package: github.com/alicebob/miniredis
+  version: ^2.1.0
