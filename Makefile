@@ -1,5 +1,5 @@
 test:
-	go test -cover ./...
+	go test -cover $$(go list ./... | grep -v /vendor/)
 
 bench:
 	cd persistence && go test -bench=. -test.benchmem
