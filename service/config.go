@@ -1,4 +1,4 @@
-ackage service
+package service
 
 import "github.com/rafael84/shortener/persistence"
 
