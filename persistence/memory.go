@@ -24,3 +24,9 @@ func (m *Memory) Get(alias string) (url string, found bool) {
 	m.mu.Unlock()
 	return
 }
+
+func (m *Memory) Count() int {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+	return len(m.items)
+}

@@ -6,6 +6,7 @@ import (
 )
 
 func TestMemory(t *testing.T) {
+	memory := NewMemory()
 	type KeyValue struct {
 		Key   string
 		Value string
@@ -14,25 +15,34 @@ func TestMemory(t *testing.T) {
 		Scenario string
 		Set      KeyValue
 		Get      KeyValue
+		Count    int
 	}{
 		{
 			Scenario: "Set [A] 1 Get [A] 1",
 			Set:      KeyValue{"A", "1"},
 			Get:      KeyValue{"A", "1"},
+			Count:    1,
 		},
 		{
 			Scenario: "Set [ ] 2 Get [ ] 2",
 			Set:      KeyValue{" ", "2"},
 			Get:      KeyValue{" ", "2"},
+			Count:    2,
 		},
 		{
 			Scenario: "Set [C] 3 Get [D] ''",
 			Set:      KeyValue{"C", "3"},
 			Get:      KeyValue{"D", ""},
+			Count:    3,
+		},
+		{
+			Scenario: "Set [C] 4 Get [C] 4",
+			Set:      KeyValue{"C", "4"},
+			Get:      KeyValue{"C", "4"},
+			Count:    3,
 		},
 	} {
 		t.Run(tc.Scenario, func(t *testing.T) {
-			memory := NewMemory()
 			if err := memory.Set(tc.Set.Key, tc.Set.Value); err != nil {
 				t.Error(err)
 			}
@@ -40,6 +50,11 @@ func TestMemory(t *testing.T) {
 			if url != tc.Get.Value {
 				t.Errorf("unexpected value\nwant\t[%v]\ngot\t[%v]",
 					tc.Get.Value, url)
+			}
+			count := memory.Count()
+			if count != tc.Count {
+				t.Errorf("unexpected count\nwant\t[%v]\ngot\t[%v]",
+					tc.Count, count)
 			}
 		})
 	}

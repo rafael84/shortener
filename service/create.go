@@ -14,10 +14,11 @@ func Create(url, alias string) (string, error) {
 		return "", errors.New("url is invalid")
 	}
 	if alias == "" {
-		alias = Encode(generated)
-		generated++
+		alias = Encode(Storage.Count())
 	}
-	Storage.Set(alias, url)
+	if err := Storage.Set(alias, url); err != nil {
+		return "", err
+	}
 	return alias, nil
 }
 

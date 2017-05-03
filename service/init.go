@@ -4,7 +4,5 @@ import "github.com/rafael84/shortener/persistence"
 
 var (
 	Alphabet = "bcdfghjkmnpqrstvwxyz23456789BCDFGHJKMNPQRSTVWXYZ"
-
-	Storage   = persistence.NewMemory()
-	generated = 0
+	Storage  = persistence.NewMemory()
 )

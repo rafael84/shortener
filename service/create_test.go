@@ -41,20 +41,6 @@ func TestCreate(t *testing.T) {
 			ResErr:   "url is invalid",
 		},
 		{
-			Scenario: "With Alias 1",
-			ReqURL:   "http://valid.com",
-			ReqAlias: "a1",
-			ResAlias: "a1",
-			ResErr:   "",
-		},
-		{
-			Scenario: "With Alias 2",
-			ReqURL:   "http://valid.com",
-			ReqAlias: "a2",
-			ResAlias: "a2",
-			ResErr:   "",
-		},
-		{
 			Scenario: "No Alias 1",
 			ReqURL:   "http://valid.com",
 			ReqAlias: "",
@@ -80,6 +66,27 @@ func TestCreate(t *testing.T) {
 			ReqURL:   "http://valid.com",
 			ReqAlias: "",
 			ResAlias: "ba",
+			ResErr:   "",
+		},
+		{
+			Scenario: "With Alias 1",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "a1",
+			ResAlias: "a1",
+			ResErr:   "",
+		},
+		{
+			Scenario: "With Alias 2",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "a2",
+			ResAlias: "a2",
+			ResErr:   "",
+		},
+		{
+			Scenario: "No Alias 5",
+			ReqURL:   "http://valid.com",
+			ReqAlias: "",
+			ResAlias: "ca",
 			ResErr:   "",
 		},
 	} {
