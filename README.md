@@ -4,8 +4,16 @@ A sample URL Shortener written in GO
 
 ## Run
 
-    $ make run
+In memory persistence
+
+    $ make run-in-memory
     go run cmd/shortener-server/main.go
+    2017/05/01 12:30:06 server running at port 8080
+
+With REDIS persistence
+
+	$ make run-with-redis
+    go run cmd/shortener-server/main.go -redis-addr "localhost:6379"
     2017/05/01 12:30:06 server running at port 8080
 
 ## Test
