@@ -1,0 +1,4 @@
+package: github.com/rafael84/shortener
+import:
+- package: github.com/go-redis/redis
+  version: ^6.2.4
