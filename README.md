@@ -55,6 +55,8 @@ A sample URL Shortener written in GO
 
 ## AB
 
+Using in memory persistence
+
     $ ab -n 1000 -c 100 -m PUT 'http://localhost:8080/create?url=http://valid.com'
     This is ApacheBench, Version 2.3 <$Revision: 1757674 $>
     Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
@@ -109,3 +111,61 @@ A sample URL Shortener written in GO
       98%     17
       99%     18
      100%     19 (longest request)
+
+Using REDIS as the persistence layer
+
+    $ ab -n 1000 -c 50 -m PUT 'http://localhost:8080/create?url=http://valid.com'
+    This is ApacheBench, Version 2.3 <$Revision: 1757674 $>
+    Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+    Licensed to The Apache Software Foundation, http://www.apache.org/
+
+    Benchmarking localhost (be patient)
+    Completed 100 requests
+    Completed 200 requests
+    Completed 300 requests
+    Completed 400 requests
+    Completed 500 requests
+    Completed 600 requests
+    Completed 700 requests
+    Completed 800 requests
+    Completed 900 requests
+    Completed 1000 requests
+    Finished 1000 requests
+
+
+    Server Software:
+    Server Hostname:        localhost
+    Server Port:            8080
+
+    Document Path:          /create?url=http://valid.com
+    Document Length:        61 bytes
+
+    Concurrency Level:      50
+    Time taken for tests:   41.479 seconds
+    Complete requests:      1000
+    Failed requests:        134
+       (Connect: 0, Receive: 0, Length: 134, Exceptions: 0)
+    Total transferred:      166454 bytes
+    HTML transferred:       58454 bytes
+    Requests per second:    24.11 [#/sec] (mean)
+    Time per request:       2073.936 [ms] (mean)
+    Time per request:       41.479 [ms] (mean, across all concurrent requests)
+    Transfer rate:          3.92 [Kbytes/sec] received
+
+    Connection Times (ms)
+                  min  mean[+/-sd] median   max
+    Connect:        0    1   0.7      1       5
+    Processing:     1 2025 3097.3      7   10013
+    Waiting:        1 2025 3097.2      7   10013
+    Total:          2 2026 3097.3      8   10014
+
+    Percentage of the requests served within a certain time (ms)
+      50%      8
+      66%   1950
+      75%   2012
+      80%   5003
+      90%   8027
+      95%  10005
+      98%  10008
+      99%  10010
+     100%  10014 (longest request)

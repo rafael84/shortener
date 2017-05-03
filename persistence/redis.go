@@ -13,6 +13,7 @@ func NewRedis(address, password string, database int) *Redis {
 			Addr:     address,
 			Password: password,
 			DB:       database,
+			PoolSize: 100,
 		}),
 	}
 }

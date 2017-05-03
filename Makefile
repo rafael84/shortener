@@ -17,4 +17,4 @@ redis-cli:
 	docker run -it --rm --link redis:redis redis:alpine redis-cli -h redis -p 6379
 
 ab:
-	ab -n 5000 -c 100 -m PUT 'http://localhost:8080/create?url=http://valid.com'
+	ab -n 1000 -c 50 -m PUT 'http://localhost:8080/create?url=http://valid.com'
