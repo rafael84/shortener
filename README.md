@@ -22,22 +22,36 @@ A sample URL Shortener written in GO
 
     $ make bench
     cd persistence && go test -bench=. -test.benchmem
-    BenchmarkMemorySet1-4         	20000000	        57.8 ns/op	       0 B/op	       0 allocs/op
-    BenchmarkMemorySet10-4        	20000000	        63.3 ns/op	       0 B/op	       0 allocs/op
-    BenchmarkMemorySet100-4       	20000000	        70.6 ns/op	       0 B/op	       0 allocs/op
-    BenchmarkMemorySet1000-4      	20000000	        80.2 ns/op	       0 B/op	       0 allocs/op
-    BenchmarkMemorySet10000-4     	20000000	        86.3 ns/op	       0 B/op	       0 allocs/op
-    BenchmarkMemorySet100000-4    	10000000	       143 ns/op	       1 B/op	       0 allocs/op
-    BenchmarkMemorySet1000000-4   	 3000000	       369 ns/op	      53 B/op	       0 allocs/op
-    BenchmarkMemoryGet1-4         	20000000	        73.7 ns/op	       1 B/op	       1 allocs/op
-    BenchmarkMemoryGet10-4        	20000000	        98.5 ns/op	       1 B/op	       1 allocs/op
-    BenchmarkMemoryGet100-4       	20000000	       123 ns/op	       1 B/op	       1 allocs/op
-    BenchmarkMemoryGet1000-4      	20000000	       117 ns/op	       3 B/op	       1 allocs/op
-    BenchmarkMemoryGet10000-4     	10000000	       127 ns/op	       3 B/op	       1 allocs/op
-    BenchmarkMemoryGet100000-4    	10000000	       175 ns/op	       5 B/op	       1 allocs/op
-    BenchmarkMemoryGet1000000-4   	10000000	       231 ns/op	       7 B/op	       1 allocs/op
+    BenchmarkMemorySet1-4         	20000000	        84.7 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkMemorySet10-4        	20000000	        94.9 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkMemorySet100-4       	20000000	        97.8 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkMemorySet1000-4      	20000000	       109 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkMemorySet10000-4     	20000000	       117 ns/op	       0 B/op	       0 allocs/op
+    BenchmarkMemorySet100000-4    	10000000	       198 ns/op	       1 B/op	       0 allocs/op
+    BenchmarkMemorySet1000000-4   	 2000000	       540 ns/op	      79 B/op	       0 allocs/op
+    BenchmarkMemoryGet1-4         	20000000	       106 ns/op	       1 B/op	       1 allocs/op
+    BenchmarkMemoryGet10-4        	20000000	       131 ns/op	       1 B/op	       1 allocs/op
+    BenchmarkMemoryGet100-4       	10000000	       191 ns/op	       1 B/op	       1 allocs/op
+    BenchmarkMemoryGet1000-4      	10000000	       162 ns/op	       3 B/op	       1 allocs/op
+    BenchmarkMemoryGet10000-4     	10000000	       164 ns/op	       3 B/op	       1 allocs/op
+    BenchmarkMemoryGet100000-4    	10000000	       235 ns/op	       5 B/op	       1 allocs/op
+    BenchmarkMemoryGet1000000-4   	 5000000	       301 ns/op	       7 B/op	       1 allocs/op
+    BenchmarkMiniRedisSet1-4      	   30000	     55430 ns/op	     625 B/op	      38 allocs/op
+    BenchmarkMiniRedisSet10-4     	   30000	     58546 ns/op	     625 B/op	      38 allocs/op
+    BenchmarkMiniRedisSet100-4    	   20000	     61517 ns/op	     632 B/op	      37 allocs/op
+    BenchmarkMiniRedisSet1000-4   	   20000	     61781 ns/op	     651 B/op	      37 allocs/op
+    BenchmarkMiniRedisGet1-4      	   20000	     59636 ns/op	     504 B/op	      32 allocs/op
+    BenchmarkMiniRedisGet10-4     	   20000	     62779 ns/op	     504 B/op	      32 allocs/op
+    BenchmarkMiniRedisGet100-4    	   20000	     60327 ns/op	     511 B/op	      32 allocs/op
+    BenchmarkMiniRedisGet1000-4   	   20000	     60982 ns/op	     512 B/op	      32 allocs/op
+    BenchmarkLocalRedisSet1-4     	     200	  20130012 ns/op	    4091 B/op	      79 allocs/op
+    BenchmarkLocalRedisSet10-4    	     100	  40003787 ns/op	    4096 B/op	      79 allocs/op
+    BenchmarkLocalRedisSet100-4   	     100	  19956417 ns/op	    4096 B/op	      79 allocs/op
+    BenchmarkLocalRedisGet1-4     	     100	  21007397 ns/op	    4070 B/op	      79 allocs/op
+    BenchmarkLocalRedisGet10-4    	     100	  20242761 ns/op	    4065 B/op	      79 allocs/op
+    BenchmarkLocalRedisGet100-4   	     100	  19918502 ns/op	    4064 B/op	      79 allocs/op
     PASS
-    ok  	github.com/rafael84/shortener/persistence	33.176s
+    ok  	github.com/rafael84/shortener/persistence	76.171s
 
 ## AB
 

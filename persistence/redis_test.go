@@ -1,6 +1,7 @@
 package persistence_test
 
 import (
+	"strconv"
 	"testing"
 
 	"github.com/alicebob/miniredis"
@@ -89,3 +90,79 @@ func TestRedis(t *testing.T) {
 		})
 	}
 }
+
+func benchmarkMiniRedisSet(keyCount int, b *testing.B) {
+	s, err := miniredis.Run()
+	if err != nil {
+		b.Fatal(err)
+	}
+	defer s.Close()
+	redis := persistence.NewRedis(s.Addr(), "", 0)
+
+	aliases := []string{}
+	for n := 0; n < keyCount; n++ {
+		aliases = append(aliases, strconv.Itoa(n))
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		redis.Set(aliases[n%keyCount], "url")
+	}
+}
+
+func BenchmarkMiniRedisSet1(b *testing.B)    { benchmarkMiniRedisSet(1, b) }
+func BenchmarkMiniRedisSet10(b *testing.B)   { benchmarkMiniRedisSet(10, b) }
+func BenchmarkMiniRedisSet100(b *testing.B)  { benchmarkMiniRedisSet(100, b) }
+func BenchmarkMiniRedisSet1000(b *testing.B) { benchmarkMiniRedisSet(1000, b) }
+
+func benchmarkMiniRedisGet(keyCount int, b *testing.B) {
+	s, err := miniredis.Run()
+	if err != nil {
+		b.Fatal(err)
+	}
+	defer s.Close()
+	redis := persistence.NewRedis(s.Addr(), "", 0)
+
+	for n := 0; n < keyCount; n++ {
+		redis.Set(strconv.Itoa(n), "url")
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		redis.Get(strconv.Itoa(n % keyCount))
+	}
+}
+
+func BenchmarkMiniRedisGet1(b *testing.B)    { benchmarkMiniRedisGet(1, b) }
+func BenchmarkMiniRedisGet10(b *testing.B)   { benchmarkMiniRedisGet(10, b) }
+func BenchmarkMiniRedisGet100(b *testing.B)  { benchmarkMiniRedisGet(100, b) }
+func BenchmarkMiniRedisGet1000(b *testing.B) { benchmarkMiniRedisGet(1000, b) }
+
+func benchmarkLocalRedisSet(keyCount int, b *testing.B) {
+	redis := persistence.NewRedis("localhost:6379", "", 0)
+	aliases := []string{}
+	for n := 0; n < keyCount; n++ {
+		aliases = append(aliases, strconv.Itoa(n))
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		redis.Set(aliases[n%keyCount], "url")
+	}
+}
+
+func BenchmarkLocalRedisSet1(b *testing.B)   { benchmarkLocalRedisSet(1, b) }
+func BenchmarkLocalRedisSet10(b *testing.B)  { benchmarkLocalRedisSet(10, b) }
+func BenchmarkLocalRedisSet100(b *testing.B) { benchmarkLocalRedisSet(100, b) }
+
+func benchmarkLocalRedisGet(keyCount int, b *testing.B) {
+	redis := persistence.NewRedis("localhost:6379", "", 0)
+	for n := 0; n < keyCount; n++ {
+		redis.Set(strconv.Itoa(n), "url")
+	}
+	b.ResetTimer()
+	for n := 0; n < b.N; n++ {
+		redis.Get(strconv.Itoa(n % keyCount))
+	}
+}
+
+func BenchmarkLocalRedisGet1(b *testing.B)   { benchmarkLocalRedisGet(1, b) }
+func BenchmarkLocalRedisGet10(b *testing.B)  { benchmarkLocalRedisGet(10, b) }
+func BenchmarkLocalRedisGet100(b *testing.B) { benchmarkLocalRedisGet(100, b) }
