@@ -4,8 +4,11 @@ test:
 bench:
 	cd persistence && go test -bench=. -test.benchmem
 
-run:
+run-in-memory:
 	go run cmd/shortener-server/main.go
+
+run-with-redis:
+	go run cmd/shortener-server/main.go -redis-addr "localhost:6379"
 
 redis-server:
 	docker run -d --name redis redis:alpine redis-server --appendonly yes
