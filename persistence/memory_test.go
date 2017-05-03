@@ -12,39 +12,49 @@ func TestMemory(t *testing.T) {
 		Value string
 	}
 	for _, tc := range []struct {
-		Scenario string
-		Set      KeyValue
-		Get      KeyValue
-		Count    int
+		Scenario  string
+		Set       KeyValue
+		Get       KeyValue
+		Increment bool
+		Count     int
 	}{
 		{
-			Scenario: "Set [A] 1 Get [A] 1",
-			Set:      KeyValue{"A", "1"},
-			Get:      KeyValue{"A", "1"},
-			Count:    1,
+			Scenario:  "Set [A] 1 Get [A] 1",
+			Set:       KeyValue{"A", "1"},
+			Get:       KeyValue{"A", "1"},
+			Increment: true,
+			Count:     1,
 		},
 		{
-			Scenario: "Set [ ] 2 Get [ ] 2",
-			Set:      KeyValue{" ", "2"},
-			Get:      KeyValue{" ", "2"},
-			Count:    2,
+			Scenario:  "Set [ ] 2 Get [ ] 2",
+			Set:       KeyValue{" ", "2"},
+			Get:       KeyValue{" ", "2"},
+			Increment: true,
+			Count:     2,
 		},
 		{
-			Scenario: "Set [C] 3 Get [D] ''",
-			Set:      KeyValue{"C", "3"},
-			Get:      KeyValue{"D", ""},
-			Count:    3,
+			Scenario:  "Set [C] 3 Get [D] ''",
+			Set:       KeyValue{"C", "3"},
+			Get:       KeyValue{"D", ""},
+			Increment: true,
+			Count:     3,
 		},
 		{
-			Scenario: "Set [C] 4 Get [C] 4",
-			Set:      KeyValue{"C", "4"},
-			Get:      KeyValue{"C", "4"},
-			Count:    3,
+			Scenario:  "Set [C] 4 Get [C] 4",
+			Set:       KeyValue{"C", "4"},
+			Get:       KeyValue{"C", "4"},
+			Increment: false,
+			Count:     3,
 		},
 	} {
 		t.Run(tc.Scenario, func(t *testing.T) {
 			if err := memory.Set(tc.Set.Key, tc.Set.Value); err != nil {
 				t.Error(err)
+			}
+			if tc.Increment {
+				if err := memory.Increment(); err != nil {
+					t.Error(err)
+				}
 			}
 			url, _ := memory.Get(tc.Get.Key)
 			if url != tc.Get.Value {

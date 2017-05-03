@@ -86,7 +86,7 @@ func TestCreate(t *testing.T) {
 			Scenario: "No Alias 5",
 			ReqURL:   "http://valid.com",
 			ReqAlias: "",
-			ResAlias: "ca",
+			ResAlias: "bb",
 			ResErr:   "",
 		},
 	} {

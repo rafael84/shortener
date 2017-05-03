@@ -15,6 +15,9 @@ func Create(url, alias string) (string, error) {
 	}
 	if alias == "" {
 		alias = Encode(Storage.Count())
+		if err := Storage.Increment(); err != nil {
+			return "", err
+		}
 	}
 	if err := Storage.Set(alias, url); err != nil {
 		return "", err

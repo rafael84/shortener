@@ -9,6 +9,7 @@ func NewMemory() *Memory {
 type Memory struct {
 	mu    sync.Mutex
 	items map[string]string
+	count int
 }
 
 func (m *Memory) Set(alias, url string) error {
@@ -28,5 +29,12 @@ func (m *Memory) Get(alias string) (url string, found bool) {
 func (m *Memory) Count() int {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-	return len(m.items)
+	return m.count
+}
+
+func (m *Memory) Increment() error {
+	m.mu.Lock()
+	m.count++
+	m.mu.Unlock()
+	return nil
 }
