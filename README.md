@@ -11,11 +11,11 @@ A sample URL Shortener written in GO
 ## Test
 
     $ make test
-    go test -cover ./...
+    go test -cover $(go list ./... | grep -v /vendor/)
     ?   	github.com/rafael84/shortener/cmd/shortener-server	[no test files]
-    ok  	github.com/rafael84/shortener/handler	0.015s	coverage: 100.0% of statements
+    ok  	github.com/rafael84/shortener/handler	0.013s	coverage: 100.0% of statements
     ok  	github.com/rafael84/shortener/persistence	0.014s	coverage: 100.0% of statements
-    ok  	github.com/rafael84/shortener/service	0.012s	coverage: 100.0% of statements
+    ok  	github.com/rafael84/shortener/service	0.014s	coverage: 96.0% of statements
 
 
 ## Benchmark
