@@ -12,6 +12,7 @@ import (
 
 func main() {
 	if config.Data.Redis.Addr != "" {
+		log.Println("configuring redis persistence", config.Data.Redis.Addr)
 		service.Storage = persistence.NewRedis(
 			config.Data.Redis.Addr,
 			config.Data.Redis.Password,
