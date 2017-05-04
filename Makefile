@@ -18,3 +18,15 @@ redis-cli:
 
 ab:
 	ab -n 1000 -c 50 -m PUT 'http://localhost:8080/create?url=http://valid.com'
+
+image: target/shortener-server
+	docker build -t fael84/shortener-server:latest .
+	docker push fael84/shortener-server:latest
+
+target/shortener-server: | target
+	GOOS=linux go build \
+		 -o target/shortener-server \
+		 github.com/rafael84/shortener/cmd/shortener-server
+
+target:
+	mkdir -p target
