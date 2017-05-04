@@ -1,3 +1,6 @@
+SRC_FILES := $(shell find . -name '*.go' | grep -v vendor/)
+
+
 test:
 	go test -cover $$(go list ./... | grep -v /vendor/)
 
@@ -23,7 +26,7 @@ image: target/shortener-server
 	docker build -t fael84/shortener-server:latest .
 	docker push fael84/shortener-server:latest
 
-target/shortener-server: | target
+target/shortener-server: $(SRC_FILES) | target
 	GOOS=linux go build \
 		 -o target/shortener-server \
 		 github.com/rafael84/shortener/cmd/shortener-server
