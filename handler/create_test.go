@@ -63,7 +63,7 @@ func TestCreate(t *testing.T) {
 		{
 			Scenario:    "Invalid 1",
 			GivenParams: url.Values{},
-			WantStatus:  200,
+			WantStatus:  400,
 			WantBody:    `{"err":"url is required"}`,
 		},
 		{
@@ -71,7 +71,7 @@ func TestCreate(t *testing.T) {
 			GivenParams: url.Values{
 				"url": {"invalid"},
 			},
-			WantStatus: 200,
+			WantStatus: 400,
 			WantBody:   `{"err":"url is invalid"}`,
 		},
 		{

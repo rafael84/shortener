@@ -15,8 +15,10 @@ func Recover(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		w.WriteHeader(404)
 		fmt.Fprintf(w, `{"err":"Not Found"}`)
+		accessLog(r, 404)
 	} else {
 		w.Header().Set("Location", url)
 		w.WriteHeader(302)
+		accessLog(r, 302, url)
 	}
 }
